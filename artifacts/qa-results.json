@@ -1,0 +1,12 @@
+{
+  "http": 200,
+  "states": 9,
+  "forms": 4,
+  "animation": true,
+  "pause": true,
+  "reducedMotion": true,
+  "invalidParams": true,
+  "desktopOverflow": false,
+  "mobileOverflow": false,
+  "errors": []
+}
