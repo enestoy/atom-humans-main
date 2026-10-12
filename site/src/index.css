@@ -241,6 +241,10 @@ button:focus-visible, label:focus-within { outline: 1.5px solid var(--soft); out
 .name { font-size: 18px; }
 .edition { color: var(--muted); font-size: 11px; margin-left: 8px; }
 .project-note { color: var(--muted); font-size: 11px; }
+.language-switch { display: inline-flex; gap: 2px; padding: 3px; border-radius: 9px; background: var(--fill); }
+.language-switch button { padding: 5px 9px; border-radius: 6px; font: 11px var(--mono); color: var(--muted); }
+.language-switch button:hover { color: var(--text); }
+.language-switch button[aria-pressed='true'] { background: var(--seg-on); color: var(--text); }
 .states { gap: clamp(8px, 1.8vw, 30px); }
 .state-head { padding: 10px 0 12px; opacity: .56; }
 .state-name { font-size: 11px; }
@@ -259,6 +263,7 @@ button:focus-visible, label:focus-within { outline: 1.5px solid var(--soft); out
 @media (max-width: 900px), (max-height: 640px) {
   .app { min-height: 0; gap: 32px; padding: 22px 24px 150px; }
   .masthead { gap: 12px; }
+  .masthead-end { gap: 8px; }
   .stage { grid-column: 1; margin-top: 22px; }
   .edition, .project-note { display: none; }
   .byline { gap: 6px; }

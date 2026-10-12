@@ -1,0 +1,101 @@
+{
+  "meta": {
+    "description": "Atomlardan oluşan insan karakterleri. Dokuz animasyon durumu, insan yüzü ve etkileşimli yıldız tozu efektleri."
+  },
+  "brand": {
+    "tagline": "yıldız tozundan insana",
+    "sources": "Human × Robot Heads"
+  },
+  "forms": {
+    "human": "İnsan",
+    "slender": "İnce",
+    "athletic": "Atletik",
+    "youth": "Genç"
+  },
+  "states": {
+    "idle": "Sakin",
+    "thinking": "Düşünüyor",
+    "searching": "Arıyor",
+    "listening": "Dinliyor",
+    "speaking": "Konuşuyor",
+    "working": "Çalışıyor",
+    "happy": "Mutlu",
+    "error": "Hata",
+    "sleeping": "Uyuyor"
+  },
+  "hints": {
+    "idle": "Nefes alır, göz kırpar ve bakışlarıyla seni takip eder.",
+    "thinking": "Başını eğer; düşünceler atom yörüngelerine dönüşür.",
+    "searching": "Etrafına bakınır; ışık dalgası bedenini tarar.",
+    "listening": "Sana doğru eğilir; atom halkaları ritmik olarak titreşir.",
+    "speaking": "Atomlardan dudakları hareket eder, yüzüne ışık yayılır.",
+    "working": "Odaklanır; enerji dalgaları bedeninde yükselir.",
+    "happy": "Gülümser, zıplar ve etrafına altın atomlar saçar.",
+    "error": "Başını sallar; atomları kırmızı ışıkla yanıp söner.",
+    "sleeping": "Gözleri kapanır, atom ışığı yavaşça soluk alır."
+  },
+  "controls": {
+    "color": "Beden atomları",
+    "accentColor": "Vurgu atomları",
+    "faceColor": "Yüz atomları",
+    "customColor": "Özel renk",
+    "halo": "Atom halkası",
+    "on": "Açık",
+    "off": "Kapalı",
+    "view": "Görünüm",
+    "body": "Tam beden",
+    "face": "Yüz detayı",
+    "speed": "Hız",
+    "play": "Oynat",
+    "pause": "Durdur",
+    "component": "Bileşen",
+    "reset": "Sıfırla",
+    "copy": "Kopyala",
+    "copied": "Kopyalandı"
+  },
+  "colors": {
+    "stardust": "Yıldız mavisi",
+    "cobalt": "Kobalt",
+    "coral": "Mercan",
+    "orange": "Turuncu",
+    "amber": "Kehribar",
+    "mint": "Nane",
+    "teal": "Turkuaz",
+    "violet": "Mor",
+    "pink": "Pembe",
+    "graphite": "Grafit",
+    "porcelain": "Porselen",
+    "gold": "Altın",
+    "steel": "Çelik",
+    "silver": "Gümüş",
+    "brass": "Pirinç",
+    "copper": "Bakır",
+    "black": "Siyah",
+    "white": "Beyaz",
+    "ice": "Buz",
+    "green": "Yeşil",
+    "neon": "Neon"
+  },
+  "theme": {
+    "toDark": "Koyu temaya geç",
+    "toLight": "Açık temaya geç",
+    "dark": "Koyu tema",
+    "light": "Açık tema"
+  },
+  "language": {
+    "label": "Dil",
+    "english": "English",
+    "turkish": "Türkçe"
+  },
+  "navigation": {
+    "character": "Karakter",
+    "controls": "Kontroller",
+    "state": "Animasyon durumu",
+    "preview": "Atom insan önizlemesi"
+  },
+  "accessibility": {
+    "character": "Atom insan, {{state}}. Tepki için tıkla veya Enter ya da Boşluk tuşuna bas.",
+    "swatch": "{{group}}: {{color}}"
+  },
+  "interactionHint": "İmleci takip eder · Tepki için karaktere tıkla"
+}

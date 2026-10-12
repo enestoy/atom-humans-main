@@ -1,0 +1,101 @@
+{
+  "meta": {
+    "description": "Animated human characters made of glowing atoms, with expressive faces, nine animation states, and interactive particle effects."
+  },
+  "brand": {
+    "tagline": "from stardust to human",
+    "sources": "Human × Robot Heads"
+  },
+  "forms": {
+    "human": "Human",
+    "slender": "Slender",
+    "athletic": "Athletic",
+    "youth": "Youth"
+  },
+  "states": {
+    "idle": "Idle",
+    "thinking": "Thinking",
+    "searching": "Searching",
+    "listening": "Listening",
+    "speaking": "Speaking",
+    "working": "Working",
+    "happy": "Happy",
+    "error": "Error",
+    "sleeping": "Sleeping"
+  },
+  "hints": {
+    "idle": "Breathes, blinks, and follows you with its gaze.",
+    "thinking": "Tilts its head as thoughts become orbiting atoms.",
+    "searching": "Looks around as a wave of light scans its body.",
+    "listening": "Leans toward you as atom rings pulse rhythmically.",
+    "speaking": "Its atom lips move as light spreads across its face.",
+    "working": "Focuses as waves of energy rise through its body.",
+    "happy": "Smiles, jumps, and scatters golden atoms around it.",
+    "error": "Shakes its head as its atoms flicker red.",
+    "sleeping": "Closes its eyes as its atom light slowly breathes."
+  },
+  "controls": {
+    "color": "Body atoms",
+    "accentColor": "Accent atoms",
+    "faceColor": "Face atoms",
+    "customColor": "Custom color",
+    "halo": "Atom halo",
+    "on": "On",
+    "off": "Off",
+    "view": "View",
+    "body": "Full body",
+    "face": "Face detail",
+    "speed": "Speed",
+    "play": "Play",
+    "pause": "Pause",
+    "component": "Component",
+    "reset": "Reset",
+    "copy": "Copy",
+    "copied": "Copied"
+  },
+  "colors": {
+    "stardust": "Stardust blue",
+    "cobalt": "Cobalt",
+    "coral": "Coral",
+    "orange": "Orange",
+    "amber": "Amber",
+    "mint": "Mint",
+    "teal": "Teal",
+    "violet": "Violet",
+    "pink": "Pink",
+    "graphite": "Graphite",
+    "porcelain": "Porcelain",
+    "gold": "Gold",
+    "steel": "Steel",
+    "silver": "Silver",
+    "brass": "Brass",
+    "copper": "Copper",
+    "black": "Black",
+    "white": "White",
+    "ice": "Ice",
+    "green": "Green",
+    "neon": "Neon"
+  },
+  "theme": {
+    "toDark": "Switch to dark mode",
+    "toLight": "Switch to light mode",
+    "dark": "Dark mode",
+    "light": "Light mode"
+  },
+  "language": {
+    "label": "Language",
+    "english": "English",
+    "turkish": "Türkçe"
+  },
+  "navigation": {
+    "character": "Character",
+    "controls": "Controls",
+    "state": "Animation state",
+    "preview": "Atom human preview"
+  },
+  "accessibility": {
+    "character": "Atom human, {{state}}. Click or press Enter or Space to react.",
+    "swatch": "{{group}}: {{color}}"
+  },
+  "interactionHint": "Follows your pointer · Click the character to react"
+}

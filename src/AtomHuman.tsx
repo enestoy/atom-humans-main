@@ -93,7 +93,7 @@ export const AtomHuman = forwardRef<HTMLCanvasElement, AtomHumanProps>(function 
   };
 
   return <span ref={boxRef} role={interactive ? 'button' : 'img'} tabIndex={interactive ? 0 : undefined}
-    aria-label={ariaLabel ?? `Atom insan, ${stateKey}. Tepki için tıkla.`} className={className}
+    aria-label={ariaLabel ?? `Atom human, ${stateKey}.${interactive ? " Click or press Enter or Space to react." : ""}`} className={className}
     onClick={click} onKeyDown={keyDown}
     style={{ position: 'relative', display: 'block', flex: 'none', width: size, height: size, cursor: interactive ? 'pointer' : undefined, ...style }} {...rest}>
     <canvas ref={canvasRef} aria-hidden style={{ position: 'absolute', left: -size * 0.08, top: -size * 0.11, width: size * 1.16, height: size * 1.22, display: 'block', pointerEvents: 'none' }} />

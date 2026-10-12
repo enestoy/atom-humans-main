@@ -1,31 +1,10 @@
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { supportedLanguages } from './i18n';
 import { AtomHuman, atomHumanForms, atomHumanStates, type AtomHumanForm, type AtomHumanState } from 'atom-humans';
 
 /* ?form=human&state=thinking&paused for screenshots */
 const q = new URLSearchParams(location.search);
-
-const formLabels: Record<AtomHumanForm, string> = {
-  human: 'İnsan',
-  slender: 'İnce',
-  athletic: 'Atletik',
-  youth: 'Genç',
-};
-
-const stateLabels: Record<AtomHumanState, string> = {
-  idle: 'Sakin', thinking: 'Düşünüyor', searching: 'Arıyor', listening: 'Dinliyor',
-  speaking: 'Konuşuyor', working: 'Çalışıyor', happy: 'Mutlu', error: 'Hata', sleeping: 'Uyuyor',
-};
-const stateHints: Record<AtomHumanState, string> = {
-  idle: 'Nefes alır, göz kırpar ve bakışlarıyla seni takip eder.',
-  thinking: 'Başını eğer; düşünceler atom yörüngelerine dönüşür.',
-  searching: 'Etrafına bakınır; ışık dalgası bedenini tarar.',
-  listening: 'Sana doğru eğilir; atom halkaları ritmik olarak titreşir.',
-  speaking: 'Atomlardan dudakları hareket eder, yüzüne ışık yayılır.',
-  working: 'Odaklanır; enerji dalgaları bedeninde yükselir.',
-  happy: 'Gülümser, zıplar ve etrafına altın atomlar saçar.',
-  error: 'Başını sallar; atomları kırmızı ışıkla yanıp söner.',
-  sleeping: 'Gözleri kapanır, atom ışığı yavaşça soluk alır.',
-};
 
 interface Colors {
   color: string;
@@ -37,39 +16,36 @@ const DEFAULTS: Colors = { color: '#b4d7ff', accentColor: '#e6b96d', faceColor: 
 
 const SWATCHES: Record<keyof Colors, Array<[string, string]>> = {
   color: [
-    ['Yıldız mavisi', '#b4d7ff'],
-    ['Kobalt', '#2b49a3'],
-    ['Mercan', '#c8372d'],
-    ['Turuncu', '#e2762a'],
-    ['Kehribar', '#e0ad1f'],
-    ['Nane', '#2f8f58'],
-    ['Turkuaz', '#1f8189'],
-    ['Mor', '#6a45b8'],
-    ['Pembe', '#d9558f'],
-    ['Grafit', '#3a3d44'],
-    ['Porselen', '#e6e6ea'],
+    ['stardust', '#b4d7ff'],
+    ['cobalt', '#2b49a3'],
+    ['coral', '#c8372d'],
+    ['orange', '#e2762a'],
+    ['amber', '#e0ad1f'],
+    ['mint', '#2f8f58'],
+    ['teal', '#1f8189'],
+    ['violet', '#6a45b8'],
+    ['pink', '#d9558f'],
+    ['graphite', '#3a3d44'],
+    ['porcelain', '#e6e6ea'],
   ],
   accentColor: [
-    ['Altın', '#e6b96d'],
-    ['Çelik', '#93a6c8'],
-    ['Gümüş', '#c4c9d2'],
-    ['Pirinç', '#c9a45c'],
-    ['Bakır', '#c27a52'],
-    ['Siyah', '#2a2c31'],
+    ['gold', '#e6b96d'],
+    ['steel', '#93a6c8'],
+    ['silver', '#c4c9d2'],
+    ['brass', '#c9a45c'],
+    ['copper', '#c27a52'],
+    ['black', '#2a2c31'],
   ],
   faceColor: [
-    ['Beyaz', '#e8f4ff'],
-    ['Buz', '#7fe7ff'],
-    ['Yeşil', '#7dff9a'],
-    ['Kehribar', '#ffc46b'],
-    ['Neon', '#ff8fd0'],
+    ['white', '#e8f4ff'],
+    ['ice', '#7fe7ff'],
+    ['green', '#7dff9a'],
+    ['amber', '#ffc46b'],
+    ['neon', '#ff8fd0'],
   ],
 };
 
-const ROW_LABELS: Record<keyof Colors, string> = { color: 'Beden atomları', accentColor: 'Vurgu atomları', faceColor: 'Yüz atomları' };
 const SPEEDS = [0.5, 1, 1.5, 2];
-
-
 
 /* Fit a full human silhouette into the available stage. */
 function useStageSize() {
@@ -88,14 +64,15 @@ function useStageSize() {
 }
 
 function Dock({ form, onChange, colors, halo, paused, speed }: { form: AtomHumanForm; onChange: (s: AtomHumanForm) => void; colors: Colors; halo: boolean; paused: boolean; speed: number }) {
+  const { t } = useTranslation();
   return (
-    <nav className="dock" aria-label="Karakter">
+    <nav className="dock" aria-label={t('navigation.character')}>
       {atomHumanForms.map((s) => (
-        <button key={s} className="dock-item" aria-pressed={s === form} aria-label={formLabels[s]} onClick={() => onChange(s)}>
+        <button key={s} className="dock-item" aria-pressed={s === form} aria-label={t(`forms.${s}`)} onClick={() => onChange(s)}>
           <span className="dock-icon">
             <AtomHuman form={s} view="face" size={52} interactive={false} halo={halo} paused={paused} speed={speed} aria-hidden seed={0.42} {...colors} />
           </span>
-          <span className="dock-tip">{formLabels[s]}</span>
+          <span className="dock-tip">{t(`forms.${s}`)}</span>
         </button>
       ))}
     </nav>
@@ -103,12 +80,14 @@ function Dock({ form, onChange, colors, halo, paused, speed }: { form: AtomHuman
 }
 
 function Swatches({ name, value, onChange }: { name: keyof Colors; value: string; onChange: (v: string) => void }) {
+  const { t } = useTranslation();
+  const group = t(`controls.${name}`);
   const known = SWATCHES[name].find(([, hex]) => hex === value);
   return (
     <div className="control">
       <div className="control-head">
-        <span className="control-label">{ROW_LABELS[name]}</span>
-        <span className="control-value">{known ? known[0] : value}</span>
+        <span className="control-label">{group}</span>
+        <span className="control-value">{known ? t(`colors.${known[0]}`) : value}</span>
       </div>
       <div className="swatches">
         {SWATCHES[name].map(([label, hex]) => (
@@ -116,14 +95,14 @@ function Swatches({ name, value, onChange }: { name: keyof Colors; value: string
             key={hex}
             className="swatch"
             style={{ background: hex }}
-            title={label}
-            aria-label={`${ROW_LABELS[name]}: ${label}`}
+            title={t(`colors.${label}`)}
+            aria-label={t('accessibility.swatch', { group, color: t(`colors.${label}`) })}
             aria-pressed={hex === value}
             onClick={() => onChange(hex)}
           />
         ))}
-        <label className="swatch swatch-custom" title="Özel renk" aria-pressed={!known} style={known ? undefined : { background: value }}>
-          <input type="color" value={value} aria-label={`${ROW_LABELS[name]}: özel renk`} onChange={(e) => onChange(e.target.value)} />
+        <label className="swatch swatch-custom" title={t('controls.customColor')} aria-pressed={!known} style={known ? undefined : { background: value }}>
+          <input type="color" value={value} aria-label={t('accessibility.swatch', { group, color: t('controls.customColor') })} onChange={(e) => onChange(e.target.value)} />
         </label>
       </div>
     </div>
@@ -150,9 +129,10 @@ function useTheme() {
 }
 
 function ThemeToggle({ theme, onToggle }: { theme: Theme; onToggle: () => void }) {
+  const { t } = useTranslation();
   const light = theme === 'light';
   return (
-    <button className="theme" onClick={onToggle} aria-label={light ? 'Koyu temaya geç' : 'Açık temaya geç'} title={light ? 'Koyu tema' : 'Açık tema'}>
+    <button className="theme" onClick={onToggle} aria-label={t(light ? 'theme.toDark' : 'theme.toLight')} title={t(light ? 'theme.dark' : 'theme.light')}>
       {light ? (
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
           <path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11Z" />
@@ -164,6 +144,21 @@ function ThemeToggle({ theme, onToggle }: { theme: Theme; onToggle: () => void }
         </svg>
       )}
     </button>
+  );
+}
+
+function LanguageSelector() {
+  const { t, i18n } = useTranslation();
+  return (
+    <div className="language-switch" role="group" aria-label={t('language.label')}>
+      {supportedLanguages.map(language => {
+        const label = t(language === 'en' ? 'language.english' : 'language.turkish');
+        return <button key={language} type="button" lang={language} title={label} aria-label={label}
+          aria-pressed={i18n.resolvedLanguage === language} onClick={() => void i18n.changeLanguage(language)}>
+          {language.toUpperCase()}
+        </button>;
+      })}
+    </div>
   );
 }
 
@@ -237,6 +232,7 @@ function useCopy() {
 }
 
 export default function App() {
+  const { t } = useTranslation();
   const [state, setState] = useState<AtomHumanState>(atomHumanStates.includes(q.get('state') as AtomHumanState) ? q.get('state') as AtomHumanState : 'idle');
   const [form, setFormState] = useState<AtomHumanForm>(atomHumanForms.includes(q.get('form') as AtomHumanForm) ? q.get('form') as AtomHumanForm : 'human');
   const [view, setView] = useState<'body' | 'face'>(q.get('view') === 'face' ? 'face' : 'body');
@@ -275,55 +271,56 @@ export default function App() {
         <div className="byline">
           <span className="brand-orbit" aria-hidden>✧</span>
           <span className="name">atom humans</span>
-          <span className="edition">yıldız tozundan insana</span>
+          <span className="edition">{t('brand.tagline')}</span>
         </div>
         <div className="masthead-end">
-          <span className="project-note">Human × Robot Heads</span>
+          <span className="project-note">{t('brand.sources')}</span>
+          <LanguageSelector />
           <ThemeToggle theme={theme} onToggle={toggleTheme} />
         </div>
       </header>
 
-      <main className="stage" aria-label="Atom insan önizlemesi">
-        <AtomHuman form={form} state={state} size={size} view={view} seed={0.42} paused={paused} speed={speed} halo={halo} {...colors} />
+      <main className="stage" aria-label={t('navigation.preview')}>
+        <AtomHuman form={form} state={state} size={size} view={view} seed={0.42} aria-label={t('accessibility.character', { state: t(`states.${state}`) })} paused={paused} speed={speed} halo={halo} {...colors} />
         <div className="caption">
-          <h1 className="font-bold">{stateLabels[state]}</h1>
-          <p>{stateHints[state]}</p>
-          <span className="interaction-hint">İmleci takip eder · Tepki için karaktere tıkla</span>
+          <h1 className="font-bold">{t(`states.${state}`)}</h1>
+          <p>{t(`hints.${state}`)}</p>
+          <span className="interaction-hint">{t('interactionHint')}</span>
         </div>
       </main>
 
-      <aside className="controls" aria-label="Kontroller">
+      <aside className="controls" aria-label={t('navigation.controls')}>
         {(Object.keys(SWATCHES) as Array<keyof Colors>).map((key) => (
           <Swatches key={key} name={key} value={colors[key]} onChange={(v) => setColors((c) => ({ ...c, [key]: v }))} />
         ))}
 
         <div className="control">
           <div className="control-head">
-            <span className="control-label">Atom halkası</span>
+            <span className="control-label">{t('controls.halo')}</span>
           </div>
-          <div className="segments" role="group" aria-label="Atom halkası">
+          <div className="segments" role="group" aria-label={t('controls.halo')}>
             {[true, false].map((v) => (
               <button key={String(v)} className="segment" aria-pressed={v === halo} onClick={() => setHalo(v)}>
-                {v ? 'Açık' : 'Kapalı'}
+                {t(v ? 'controls.on' : 'controls.off')}
               </button>
             ))}
           </div>
         </div>
 
         <div className="control">
-          <div className="control-head"><span className="control-label">Görünüm</span></div>
-          <div className="segments" role="group" aria-label="Görünüm">
-            <button className="segment" aria-pressed={view === 'body'} onClick={() => setView('body')}>Tam beden</button>
-            <button className="segment" aria-pressed={view === 'face'} onClick={() => setView('face')}>Yüz detayı</button>
+          <div className="control-head"><span className="control-label">{t('controls.view')}</span></div>
+          <div className="segments" role="group" aria-label={t('controls.view')}>
+            <button className="segment" aria-pressed={view === 'body'} onClick={() => setView('body')}>{t('controls.body')}</button>
+            <button className="segment" aria-pressed={view === 'face'} onClick={() => setView('face')}>{t('controls.face')}</button>
           </div>
         </div>
 
         <div className="control">
           <div className="control-head">
-            <span className="control-label">Hız</span>
-            <button className="text-button" onClick={() => setPaused(!paused)}>{paused ? 'Oynat' : 'Durdur'}</button>
+            <span className="control-label">{t('controls.speed')}</span>
+            <button className="text-button" onClick={() => setPaused(!paused)}>{t(paused ? 'controls.play' : 'controls.pause')}</button>
           </div>
-          <div className="segments" role="group" aria-label="Hız">
+          <div className="segments" role="group" aria-label={t('controls.speed')}>
             {SPEEDS.map((v) => (
               <button key={v} className="segment" aria-pressed={v === speed} onClick={() => setSpeed(v)}>
                 {v}×
@@ -334,7 +331,7 @@ export default function App() {
 
         <div className="control">
           <div className="control-head">
-            <span className="control-label">Bileşen</span>
+            <span className="control-label">{t('controls.component')}</span>
             <span className="control-actions">
               <button
                 className="text-button reset"
@@ -348,22 +345,22 @@ export default function App() {
                   setView('body');
                 }}
               >
-                Sıfırla
+                {t('controls.reset')}
               </button>
-              <button className="text-button" onClick={() => copy('snippet', snippet)}>{copied === 'snippet' ? 'Kopyalandı' : 'Kopyala'}</button>
+              <button className="text-button" onClick={() => copy('snippet', snippet)}>{t(copied === 'snippet' ? 'controls.copied' : 'controls.copy')}</button>
             </span>
           </div>
           <Snippet lines={lines} />
         </div>
       </aside>
 
-      <nav className="states" aria-label="Animasyon durumu">
+      <nav className="states" aria-label={t('navigation.state')}>
         {atomHumanStates.map((s) => (
           <button key={s} className="state" aria-pressed={s === state} onClick={() => setState(s)}>
             <span className="state-head">
               <AtomHuman form={form} state={s} size={88} paused={paused} speed={speed} halo={halo} interactive={false} aria-hidden seed={0.42} {...colors} />
             </span>
-            <span className="state-name">{stateLabels[s]}</span>
+            <span className="state-name">{t(`states.${s}`)}</span>
           </button>
         ))}
       </nav>

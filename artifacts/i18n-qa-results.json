@@ -1,0 +1,23 @@
+{
+  "defaultEnglish": true,
+  "turkishBrowserStartsInEnglish": true,
+  "languages": [
+    "en",
+    "tr"
+  ],
+  "statesPerLanguage": 9,
+  "formsPerLanguage": 4,
+  "translatedAccessibility": true,
+  "translatedMetadata": true,
+  "persistedLanguage": true,
+  "blockedStorage": true,
+  "invalidLanguageFallsBackToEnglish": true,
+  "animation": true,
+  "pauseAllCanvases": true,
+  "languagePreservesSettings": true,
+  "mobileWidths": [
+    390,
+    320
+  ],
+  "errors": []
+}

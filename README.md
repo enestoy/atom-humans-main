@@ -1,17 +1,29 @@
 # Atom Humans
 
-`robot-heads-main` projesinin ayrı yerel kopyası. Robot karakterler kaldırıldı; `human` projesindeki prosedürel insan silueti atom insanlara uyarlandı. Orijinal iki proje değiştirilmez.
+Animated human characters made of glowing atoms, with expressive faces, nine animation states, and interactive particle effects. Built with React and Canvas 2D.
 
-## Çalıştırma
+This project adapts the animation system and playground from `robot-heads-main` and the procedural human silhouette from the companion `human` project. It includes its own geometry and renderer.
 
-Bu çalışma alanında bağımlılıklar kopyalanmıştır; doğrudan çalıştırabilirsiniz:
+## Getting started
+
+Requires Node.js 22.12 or later and pnpm.
 
 ```sh
-cd /Users/enestoy/Documents/code/oyunlar/atom-humans-main
+git clone https://github.com/enestoy/atom-humans-main.git
+cd atom-humans-main
+pnpm install
 npm run dev
 ```
 
-Yeni bir makinede bağımlılıklar için kök dizinde `pnpm install` kullanın. Node.js 22.12 veya üzeri gerekir.
+Open the local URL printed by Vite. English is the default language; use the EN / TR buttons to switch to Turkish.
+
+## Languages
+
+The playground uses `i18next` and `react-i18next` with English (`en`) as the default and fallback language, and Turkish (`tr`) as the second language. The language selector updates labels, state descriptions, tooltips, accessibility text, the HTML language attribute, and the page description. Your selection is saved locally for future visits; switching still works when browser storage is unavailable.
+
+Translation files live in `site/src/locales/en.json` and `site/src/locales/tr.json`. The reusable React component provides an English accessibility label by default; pass a translated `aria-label` when integrating it into another application.
+
+## Development commands
 
 ```sh
 npm run typecheck
@@ -20,19 +32,23 @@ npm run build:site
 npm run preview
 ```
 
-## Karakterler ve etkileşim
+`npm run build` builds the React library into `dist/`. `npm run build:site` builds both the library and the playground, with the playground output in `site/dist/`. `npm run preview` serves the built playground locally.
 
-- Dört insan formu: İnsan, İnce, Atletik, Genç.
-- Dokuz durum: sakin, düşünüyor, arıyor, dinliyor, konuşuyor, çalışıyor, mutlu, hata, uyuyor.
-- Tam beden / yüz detayı görünümü. Yüz; atomlardan alın, yanak, çene, kulak, burun, göz, kaş ve dudak kümeleri içerir.
-- İmleç takibi, göz kırpma, nefes alma, tıklamada veya Enter/Boşluk ile zıplama, tam dönüş ve atom patlaması.
-- Duruma göre yörünge, tarama, enerji dalgaları, konuşma ve gülümseme. Dinleme/konuşma halkaları prosedüreldir; mikrofon kullanılmaz.
-- Beden/vurgu/yüz rengi, zemin atom halkası, animasyon hızı, durdurma ve tema kontrolleri.
-- Hareket azaltma tercihi ve gizli sekmelerde duraklayan ortak animasyon döngüsü.
+## Characters and interactions
 
-Canvas 2D üzerinde üç boyutlu atom konumları perspektifle çizilir; WebGL ve dış görsel servisi gerekmez. Ana görünümde yaklaşık 6.500 atom, yüz görünümünde daha yoğun örnekleme, küçük önizlemelerde azaltılmış atom sayısı kullanılır.
+- Four human forms: Human, Slender, Athletic, and Youth.
+- Nine states: idle, thinking, searching, listening, speaking, working, happy, error, and sleeping.
+- Full body and face detail views. Facial atoms form the forehead, cheeks, chin, ears, nose, eyes, eyebrows, and lips.
+- Pointer tracking, blinking, and breathing. Click the character or press Enter or Space to trigger a jump, a full turn, and a burst of atoms.
+- State effects include orbital particles, scanning waves, rising energy, speaking lips, and smiles. Listening and speaking rings use procedural animation.
+- Controls for body, accent, and face colors, the floor halo, animation speed, pause, and theme.
+- Support for reduced motion preferences and a shared animation loop that pauses when the browser tab is hidden.
 
-## React bileşeni
+The renderer projects three-dimensional atom positions onto Canvas 2D. The full body view uses approximately 6,500 generated atoms, with denser sampling for face detail and fewer atoms for small previews. Rendering runs without WebGL or external image services.
+
+## React component
+
+The playground imports the component directly from this repository. After building the library, its exports are available through the `atom-humans` package entry point.
 
 ```tsx
 import { AtomHuman } from 'atom-humans';
@@ -49,10 +65,20 @@ import { AtomHuman } from 'atom-humans';
 />
 ```
 
-Diğer özellikler: `speed`, `paused`, `interactive`, `seed`, HTML span öznitelikleri ve canvas ref. Dağıtılabilir React kitaplığı `npm run build` ile `dist/` içine; yerel demo `npm run build:site` ile `site/dist/` içine hazırlanır.
+Additional props include `speed`, `paused`, `interactive`, `seed`, and HTML span attributes. A forwarded ref points to the canvas element.
 
-Önizleme URL parametreleri: `?form=athletic&state=thinking&view=face&paused&nohalo`. Geçersiz form ve durum değerleri varsayılana döner.
+## Preview parameters
 
-## Kaynaklar
+Use URL parameters to select a form, state, or view and to pause the animation or hide the halo:
 
-Hareket yayı sistemi, paylaşılan ticker ve demo temeli Fayaz Ahmed'in MIT lisanslı [robot-heads](https://github.com/fayazara/robot-heads) projesinden uyarlanmıştır. Orijinal MIT lisansı `LICENSE` içinde korunur. İnsan bedeninin parçacık geometri temeli bu çalışma alanındaki `human/src/experience/particles/particleGenerators.ts` dosyasından uyarlanmıştır. Yüz anatomisi, atom çizicisi ve durum efektleri bu kopyada eklenmiştir.
+```text
+?form=athletic&state=thinking&view=face&paused&nohalo
+```
+
+Invalid form and state values fall back to the defaults.
+
+## Credits and license
+
+The spring animation system, shared ticker, and playground foundation were adapted from Fayaz Ahmed's MIT-licensed [robot-heads](https://github.com/fayazara/robot-heads) project. The original MIT license is preserved in [LICENSE](LICENSE).
+
+The body particle geometry was adapted from `human/src/experience/particles/particleGenerators.ts` in the companion Human project. Facial anatomy, the atom renderer, and particle effects were added in this repository.

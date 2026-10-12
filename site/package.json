@@ -9,9 +9,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "atom-humans": "workspace:*",
+    "i18next": "^26.4.3",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
-    "atom-humans": "workspace:*"
+    "react-i18next": "^17.0.16"
   },
   "devDependencies": {
     "@types/node": "^24.13.3",
